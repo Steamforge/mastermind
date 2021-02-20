@@ -1,0 +1,36 @@
+.root {
+  display: flex;
+  font-size: 2rem;
+
+  .a {
+    background-color: var(--color-a);
+  }
+  .b {
+    background-color: var(--color-b);
+  }
+  .c {
+    background-color: var(--color-c);
+  }
+  .d {
+    background-color: var(--color-d);
+  }
+  .e {
+    background-color: var(--color-e);
+  }
+  .f {
+    background-color: var(--color-f);
+  }
+}
+
+.color {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: 5rem;
+  justify-content: center;
+  width: 5rem;
+
+  + .color {
+    margin-left: 1rem;
+  }
+}
