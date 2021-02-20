@@ -1,5 +1,5 @@
-import React from 'react';
 import './layout.css';
+import React from 'react';
 import SEO from '../seo';
 
 const Layout = ({ children, description, pagetitle }) => (

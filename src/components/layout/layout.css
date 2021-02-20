@@ -2,16 +2,60 @@
   --white: #ffffff;
   --text-color: #333333;
   --font-main: 'Open Sans', sans-serif;
+  --color-a: lightsalmon;
+  --color-b: lightseagreen;
+  --color-c: palevioletred;
+  --color-d: greenyellow;
+  --color-e: goldenrod;
+  --color-f: gray;
 }
 
 *,
 *::before,
-*::after {box-sizing:border-box;}
-a {text-decoration:none; color:inherit; cursor:pointer;}
-button {background-color:transparent; color:inherit; border-width:0; padding:0; cursor:pointer;}
-figure {margin:0;}
-input::-moz-focus-inner {border:0; padding:0; margin:0;}
-ul, ol, dd {margin:0; padding:0;}
-h1, h2, h3, h4, h5, h6 {margin:0; font-size:inherit; font-weight:inherit;}
-p {margin:0;}
-html {font-family:var(--font-main);font-size: 8px;}
+*::after {
+  box-sizing: border-box;
+}
+a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+button {
+  background-color: transparent;
+  border-width: 0;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+figure {
+  margin: 0;
+}
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+ul,
+ol,
+dd {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+html {
+  color: var(--text-color);
+  font-family: var(--font-main);
+  font-size: 8px;
+}

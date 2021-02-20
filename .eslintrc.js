@@ -14,7 +14,7 @@ module.exports = {
     semi: ["warn", "always", { omitLastInOneLineBlock: true }],
     "no-extra-semi": "error",
     "no-console": ["error", { allow: ["warn", "error"] }],
-    indent: ["warn", 2],
+    indent: ["warn", 2, {"SwitchCase": 1}],
     "arrow-body-style": [
       "error",
       "as-needed",
@@ -45,9 +45,10 @@ module.exports = {
     "prefer-template": "error",
     "rest-spread-spacing": ["error", "never"],
     "sort-imports": [
-      "off",
+      "warn",
       {
-        ignoreCase: false,
+        allowSeparatedGroups: true,
+        ignoreCase: true,
         ignoreDeclarationSort: false,
         ignoreMemberSort: false,
         memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
@@ -72,12 +73,11 @@ module.exports = {
         objects: "always-multiline",
         imports: "always-multiline",
         exports: "always-multiline",
-        functions: "always-multiline",
+        functions: "never",
       },
     ],
     "comma-spacing": ["error", { before: false, after: true }],
     "eol-last": ["error", "always"],
-    "implicit-arrow-linebreak": ["error", "beside"],
     "key-spacing": ["error", { beforeColon: false, afterColon: true }],
     "no-nested-ternary": "error",
     "no-unneeded-ternary": ["error", { defaultAssignment: false }],
@@ -115,6 +115,6 @@ module.exports = {
     "react/jsx-sort-props": "warn",
     // 'react/prop-types': 'warn',
     "import/newline-after-import": "error",
-    "import/prefer-default-export": "error",
+    "react/self-closing-comp": "error",
   },
 }
