@@ -1,21 +1,12 @@
 import React, { useEffect } from 'react';
 import cx from 'classnames';
+import Peg from '../Peg';
 import styles from './Code.module.scss';
 
+import { COLORS, PEG_COUNT } from '../../../constants';
 import { CHANGE_CODE } from '../../../actions';
 import { getCode } from '../../../utils';
 import { useStateValue } from '../../../store';
-
-const COLORS = ['a', 'b', 'c', 'd', 'e', 'f']; //peg colors
-
-const PEG_COUNT = 4; //number of pegs
-
-const Colors = ({ code }) =>
-  code.map(({ color, id }) => (
-    <div className={cx(styles.color, styles[color])} key={id}>
-      {color}
-    </div>
-  ));
 
 const Code = () => {
   const [{ code }, dispatch] = useStateValue();
@@ -30,7 +21,11 @@ const Code = () => {
 
   return (
     <div className={rootStyles}>
-      <Colors code={code} />
+      {code.map(({ color, id }) => (
+        <Peg color={color} key={id}>
+          {color}
+        </Peg>
+      ))}
     </div>
   );
 };

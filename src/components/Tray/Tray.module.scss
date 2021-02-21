@@ -1,0 +1,11 @@
+.root {
+  bottom: 2rem;
+  display: flex;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+
+  * + * {
+    margin-left: 1rem;
+  }
+}
