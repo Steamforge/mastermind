@@ -1,0 +1,26 @@
+$colors: a, b, c, d, e, f;
+
+.root {
+  align-items: center;
+  background-color: var(--light-gray);
+  border-radius: 50%;
+  display: flex;
+  font-size: 2rem;
+  height: 5rem;
+  justify-content: center;
+  width: 5rem;
+
+  @each $color in $colors {
+    &.#{$color} {
+      background-color: var(--color-#{$color});
+    }
+  }
+
+  &.active {
+    border: solid 2px blue;
+  }
+
+  &.link {
+    cursor: pointer;
+  }
+}

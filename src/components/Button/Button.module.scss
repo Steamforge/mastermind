@@ -1,0 +1,17 @@
+.root {
+  background-color: var(--light-gray);
+  padding: 1rem 2rem;
+
+  &.primary {
+    background-color: navy;
+    color: var(--white);
+  }
+  &.green {
+    background-color: green;
+    color: var(--white);
+  }
+  &.error {
+    background-color: maroon;
+    color: var(--white);
+  }
+}
