@@ -1,7 +1,13 @@
 .root {
+  align-items: center;
   display: flex;
+  height: 6rem;
 
   * + * {
     margin-left: 1rem;
   }
+}
+
+.win {
+  font-size: 2rem;
 }

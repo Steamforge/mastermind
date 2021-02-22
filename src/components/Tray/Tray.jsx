@@ -23,15 +23,11 @@ const Tray = () => {
     }
   }
 
-  return (
-    <div className={cx(styles.root)}>
-      {COLORS.map(color => (
-        <Peg color={color} key={color} onClick={() => updateColor(color)}>
-          {color}
-        </Peg>
-      ))}
-    </div>
+  const getPeg = color => (
+    <Peg color={color} key={color} onClick={() => updateColor(color)} />
   );
+
+  return <div className={cx(styles.root)}>{COLORS.map(getPeg)}</div>;
 };
 
 export default Tray;

@@ -10,7 +10,6 @@ import { useStateValue } from '../../../store';
 
 const Code = () => {
   const [{ code }, dispatch] = useStateValue();
-  const rootStyles = cx(styles.root);
 
   useEffect(() => {
     dispatch({
@@ -19,15 +18,9 @@ const Code = () => {
     });
   }, [dispatch]);
 
-  return (
-    <div className={rootStyles}>
-      {code.map(({ color, id }) => (
-        <Peg color={color} key={id}>
-          {color}
-        </Peg>
-      ))}
-    </div>
-  );
+  const getPeg = ({ color, id }) => <Peg color={color} key={id} />;
+
+  return <div className={cx(styles.root)}>{code.map(getPeg)}</div>;
 };
 
 export default Code;
