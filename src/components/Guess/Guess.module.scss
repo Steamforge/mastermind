@@ -1,4 +1,9 @@
 .root {
+  width: 100%;
+}
+
+.guess,
+.row {
   align-items: center;
   display: flex;
   height: 6rem;
@@ -8,6 +13,6 @@
   }
 }
 
-.win {
+.game {
   font-size: 2rem;
 }
