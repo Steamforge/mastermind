@@ -4,6 +4,7 @@ import cx from 'classnames';
 import Peg from '../Peg';
 import styles from './Row.module.scss';
 
+import { HINT_COLORS, PEG_COUNT } from '../../../constants';
 import { CHANGE_WIN } from '../../../actions';
 import { useStateValue } from '../../../store';
 
@@ -13,8 +14,8 @@ const Row = ({ row }) => {
 
   useEffect(() => {
     const newHints = new Map([
-      ['r', 0],
-      ['w', 0],
+      [HINT_COLORS.RED, 0],
+      [HINT_COLORS.WHITE, 0],
     ]);
     const codeList = new Map();
     const guessList = new Map();
@@ -32,7 +33,7 @@ const Row = ({ row }) => {
     row.forEach((color, idx) => {
       guessList.set(color, guessList.has(color) ? guessList.get(color) + 1 : 1);
       if (color === code[idx].color) {
-        newHints.set('r', newHints.get('r') + 1);
+        newHints.set(HINT_COLORS.RED, newHints.get(HINT_COLORS.RED) + 1);
       }
     });
 
@@ -40,18 +41,21 @@ const Row = ({ row }) => {
     guessList.forEach((value, key) => {
       if (codeList.has(key)) {
         newHints.set(
-          'w',
-          newHints.get('w') + Math.min(value, codeList.get(key))
+          HINT_COLORS.WHITE,
+          newHints.get(HINT_COLORS.WHITE) + Math.min(value, codeList.get(key))
         );
       }
     });
 
     //subtract red hints from all the white
-    newHints.set('w', newHints.get('w') - newHints.get('r'));
+    newHints.set(
+      HINT_COLORS.WHITE,
+      newHints.get(HINT_COLORS.WHITE) - newHints.get(HINT_COLORS.RED)
+    );
 
     setHints(newHints);
 
-    if (newHints.get('r') === 4) {
+    if (newHints.get(HINT_COLORS.RED) === PEG_COUNT) {
       dispatch({
         type: CHANGE_WIN,
         payload: { data: true },

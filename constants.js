@@ -8,7 +8,6 @@ export const INITIAL_STATE = {
 };
 
 export const COLORS = ['a', 'b', 'c', 'd', 'e', 'f']; //peg colors
-
+export const HINT_COLORS = { WHITE: 'w', RED: 'r' };
 export const PEG_COUNT = 4; //number of pegs
-
 export const ROUNDS = 10; //number of rounds

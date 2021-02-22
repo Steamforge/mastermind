@@ -9,10 +9,9 @@ const Peg = ({ active, color, onClick }) => {
     { [styles.active]: active },
     { [styles.link]: onClick }
   );
-
   return (
     <div className={rootStyles} onClick={onClick}>
-      {color}
+      {color?.toUpperCase()}
     </div>
   );
 };

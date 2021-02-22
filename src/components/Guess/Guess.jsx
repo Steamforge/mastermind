@@ -7,11 +7,9 @@ import Row from '../Row';
 import styles from './Guess.module.scss';
 
 import {
-  CHANGE_CODE,
   CHANGE_PEG,
-  CHANGE_ROUND,
-  CHANGE_ROW,
-  CHANGE_WIN,
+  RESET_GAME,
+  SUBMIT_GUESS,
   UPDATE_GUESS_ROW,
 } from '../../../actions';
 import { COLORS, INITIAL_STATE, PEG_COUNT, ROUNDS } from '../../../constants';
@@ -55,99 +53,86 @@ const Guess = () => {
     if (activeGuess.indexOf(null) === -1) {
       const newRows = [...guessedRows, activeGuess];
       dispatch({
-        type: CHANGE_ROW,
-        payload: { data: newRows },
+        type: SUBMIT_GUESS,
+        payload: {
+          data: {
+            guess: INITIAL_STATE.activeGuess,
+            peg: INITIAL_STATE.activePeg,
+            round: currentRound + 1,
+            row: newRows,
+          },
+        },
       });
-      dispatch({
-        type: CHANGE_ROUND,
-        payload: { data: currentRound + 1 },
-      });
-      updateGuessRow();
     }
   }
 
   //reset the game
   function resetGame() {
-    updateGuessRow();
     dispatch({
-      type: CHANGE_ROUND,
-      payload: { data: INITIAL_STATE.currentRound },
-    });
-    dispatch({
-      type: CHANGE_ROW,
-      payload: { data: INITIAL_STATE.guessedRows },
-    });
-    dispatch({
-      type: CHANGE_CODE,
-      payload: { data: getCode(PEG_COUNT, COLORS) },
-    });
-    dispatch({
-      type: CHANGE_WIN,
-      payload: { data: INITIAL_STATE.winGame },
+      type: RESET_GAME,
+      payload: {
+        data: {
+          code: getCode(PEG_COUNT, COLORS),
+          guess: INITIAL_STATE.activeGuess,
+          peg: INITIAL_STATE.activePeg,
+          round: INITIAL_STATE.currentRound,
+          row: INITIAL_STATE.guessedRows,
+          win: INITIAL_STATE.winGame,
+        },
+      },
     });
   }
 
   return (
     <>
-      {guessedRows.map((row, idx) => (
-        <Row key={`row${idx}`} row={row} />
-      ))}
+      <div className={cx(styles.root)}>
+        {guessedRows.map((row, idx) => (
+          <Row key={`row${idx}`} row={row} />
+        ))}
 
-      {!winGame && currentRound < ROUNDS && (
-        <div className={cx(styles.root)}>
-          {activeGuess.map((color, idx) => (
-            <Peg
-              active={activePeg[idx]}
-              color={color}
-              key={`${idx}${color}`}
-              onClick={() => updatePeg(idx)}
-            />
-          ))}
-          <Button buttonType="primary" onClick={updateGuessRow}>
-            Clear Row
-          </Button>
-          {guessedRows.length > 0 && (
-            <Button onClick={() => updateGuessRow('copy')}>Copy Guess</Button>
-          )}
-          <Button buttonType="green" onClick={submitGuess}>
-            Make Guess
-          </Button>
-          <Button buttonType="error" onClick={resetGame}>
-            Reset Game
-          </Button>
-        </div>
-      )}
+        {!winGame && currentRound < ROUNDS && (
+          <div className={cx(styles.guess)}>
+            {activeGuess.map((color, idx) => (
+              <Peg
+                active={activePeg[idx]}
+                color={color}
+                key={`${idx}${color}`}
+                onClick={() => updatePeg(idx)}
+              />
+            ))}
+            <Button buttonType="primary" onClick={updateGuessRow}>
+              Clear Row
+            </Button>
+            {guessedRows.length > 0 && (
+              <Button onClick={() => updateGuessRow('copy')}>Copy Guess</Button>
+            )}
+            <Button buttonType="green" onClick={submitGuess}>
+              Make Guess
+            </Button>
+          </div>
+        )}
 
-      <div>
         {currentRound < ROUNDS &&
           [
             ...Array(ROUNDS - guessedRows.length - (!winGame ? 1 : 0)).keys(),
           ].map(row => (
             <div className={cx(styles.row)} key={row}>
-              {[...Array(4).keys()].map(peg => (
+              {[...Array(PEG_COUNT).keys()].map(peg => (
                 <Peg key={peg} />
               ))}
             </div>
           ))}
       </div>
 
-      {winGame && (
-        <div className={cx(styles.win)}>
-          <div>You Win!</div>
-          <Button buttonType="green" onClick={resetGame}>
-            New Game
-          </Button>
-        </div>
-      )}
+      <div className={cx(styles.game)}>
+        {winGame && <div>You Win!</div>}
 
-      {!winGame && currentRound === ROUNDS && (
-        <div className={cx(styles.win)}>
-          <div>Try Again!</div>
-          <Button buttonType="error" onClick={resetGame}>
-            New Game
-          </Button>
-        </div>
-      )}
+        {!winGame && currentRound === ROUNDS && <div>Try Again!</div>}
+
+        <Button buttonType={winGame ? 'green' : 'error'} onClick={resetGame}>
+          New Game
+        </Button>
+      </div>
     </>
   );
 };
