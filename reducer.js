@@ -1,4 +1,11 @@
-import { CHANGE_CODE, CHANGE_GUESS, CHANGE_PEG, CHANGE_ROW } from './actions';
+import {
+  CHANGE_CODE,
+  CHANGE_GUESS,
+  CHANGE_PEG,
+  CHANGE_ROW,
+  CHANGE_WIN,
+  UPDATE_GUESS_ROW,
+} from './actions';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -21,6 +28,17 @@ const reducer = (state, action) => {
       return {
         ...state,
         guessedRows: action.payload.data,
+      };
+    case CHANGE_WIN:
+      return {
+        ...state,
+        winGame: action.payload.data,
+      };
+    case UPDATE_GUESS_ROW:
+      return {
+        ...state,
+        activePeg: action.payload.data.peg,
+        activeGuess: action.payload.data.guess,
       };
 
     default:

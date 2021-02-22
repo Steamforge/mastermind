@@ -3,6 +3,7 @@ export const INITIAL_STATE = {
   activeGuess: [null, null, null, null],
   activePeg: [false, false, false, false],
   guessedRows: [],
+  winGame: false,
 };
 
 export const COLORS = ['a', 'b', 'c', 'd', 'e', 'f']; //peg colors

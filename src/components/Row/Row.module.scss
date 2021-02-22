@@ -1,7 +1,41 @@
 .root {
+  align-items: center;
   display: flex;
+  height: 6rem;
 
-  * + * {
+  > * + * {
     margin-left: 1rem;
+  }
+}
+
+.keyContainer {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  width: 8rem;
+
+  .r,
+  .w {
+    align-items: center;
+    display: flex;
+    height: 3rem;
+    justify-content: center;
+    position: relative;
+    width: 3rem;
+
+    &::after {
+      content: '';
+      border-radius: 50%;
+      display: block;
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+  .r::after {
+    background-color: red;
+  }
+  .w::after {
+    background-color: white;
+    border: solid 1px black;
   }
 }
