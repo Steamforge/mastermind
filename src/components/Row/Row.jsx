@@ -58,7 +58,7 @@ const Row = ({ row }) => {
     if (newHints.get(HINT_COLORS.RED) === PEG_COUNT) {
       dispatch({
         type: CHANGE_WIN,
-        payload: { data: true },
+        payload: { data: { win: true, show: true } },
       });
     }
   }, [code, dispatch, row]);

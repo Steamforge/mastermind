@@ -1,9 +1,10 @@
 export const INITIAL_STATE = {
-  code: [],
   activeGuess: [null, null, null, null],
   activePeg: [false, false, false, false],
+  code: [],
   currentRound: 0,
   guessedRows: [],
+  showCode: false,
   winGame: false,
 };
 

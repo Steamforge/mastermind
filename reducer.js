@@ -20,7 +20,8 @@ const reducer = (state, action) => {
     case actions.CHANGE_WIN:
       return {
         ...state,
-        winGame: action.payload.data,
+        winGame: action.payload.data.win,
+        showCode: action.payload.data.show,
       };
     case actions.UPDATE_GUESS_ROW:
       return {
@@ -44,6 +45,7 @@ const reducer = (state, action) => {
         code: action.payload.data.code,
         currentRound: action.payload.data.round,
         guessedRows: action.payload.data.row,
+        showCode: action.payload.data.show,
         winGame: action.payload.data.win,
       };
     default:
