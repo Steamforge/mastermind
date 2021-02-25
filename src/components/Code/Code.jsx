@@ -8,8 +8,8 @@ import { CHANGE_CODE } from '../../../actions';
 import { getCode } from '../../../utils';
 import { useStateValue } from '../../../store';
 
-const Code = () => {
-  const [{ code }, dispatch] = useStateValue();
+const Code = ({ show }) => {
+  const [{ code, showCode }, dispatch] = useStateValue();
 
   useEffect(() => {
     dispatch({
@@ -18,7 +18,11 @@ const Code = () => {
     });
   }, [dispatch]);
 
-  const getPeg = ({ color, id }) => <Peg color={color} key={id} />;
+  const isShown = show || showCode;
+
+  const getPeg = ({ color, id }) => (
+    <Peg color={isShown ? color : 'x'} key={id} />
+  );
 
   return <div className={cx(styles.root)}>{code.map(getPeg)}</div>;
 };

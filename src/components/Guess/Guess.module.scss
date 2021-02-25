@@ -1,16 +1,24 @@
 .root {
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
   width: 100%;
+  background-color: var(--white);
 }
 
 .guess,
 .row {
   align-items: center;
   display: flex;
-  height: 6rem;
+  height: 7rem;
+  padding: 1rem;
 
   * + * {
     margin-left: 1rem;
   }
+}
+
+.guess {
+  background-color: var(--hilite);
 }
 
 .game {

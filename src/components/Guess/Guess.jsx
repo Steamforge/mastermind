@@ -1,19 +1,12 @@
 import cx from 'classnames';
 import React from 'react';
 
-import Button from '../Button';
 import Peg from '../Peg';
 import Row from '../Row';
 import styles from './Guess.module.scss';
 
-import {
-  CHANGE_PEG,
-  RESET_GAME,
-  SUBMIT_GUESS,
-  UPDATE_GUESS_ROW,
-} from '../../../actions';
-import { COLORS, INITIAL_STATE, PEG_COUNT, ROUNDS } from '../../../constants';
-import { getCode } from '../../../utils';
+import { PEG_COUNT, ROUNDS } from '../../../constants';
+import { CHANGE_PEG } from '../../../actions';
 import { useStateValue } from '../../../store';
 
 const Guess = () => {
@@ -32,57 +25,6 @@ const Guess = () => {
     });
   }
 
-  //clear or copy
-  function updateGuessRow(type) {
-    dispatch({
-      type: UPDATE_GUESS_ROW,
-      payload: {
-        data: {
-          guess:
-            type === 'copy'
-              ? guessedRows[guessedRows.length - 1]
-              : INITIAL_STATE.activeGuess,
-          peg: INITIAL_STATE.activePeg,
-        },
-      },
-    });
-  }
-
-  //make a guess
-  function submitGuess() {
-    if (activeGuess.indexOf(null) === -1) {
-      const newRows = [...guessedRows, activeGuess];
-      dispatch({
-        type: SUBMIT_GUESS,
-        payload: {
-          data: {
-            guess: INITIAL_STATE.activeGuess,
-            peg: INITIAL_STATE.activePeg,
-            round: currentRound + 1,
-            row: newRows,
-          },
-        },
-      });
-    }
-  }
-
-  //reset the game
-  function resetGame() {
-    dispatch({
-      type: RESET_GAME,
-      payload: {
-        data: {
-          code: getCode(PEG_COUNT, COLORS),
-          guess: INITIAL_STATE.activeGuess,
-          peg: INITIAL_STATE.activePeg,
-          round: INITIAL_STATE.currentRound,
-          row: INITIAL_STATE.guessedRows,
-          win: INITIAL_STATE.winGame,
-        },
-      },
-    });
-  }
-
   return (
     <>
       <div className={cx(styles.root)}>
@@ -96,19 +38,11 @@ const Guess = () => {
               <Peg
                 active={activePeg[idx]}
                 color={color}
+                currentRow
                 key={`${idx}${color}`}
                 onClick={() => updatePeg(idx)}
               />
             ))}
-            <Button buttonType="primary" onClick={updateGuessRow}>
-              Clear Row
-            </Button>
-            {guessedRows.length > 0 && (
-              <Button onClick={() => updateGuessRow('copy')}>Copy Guess</Button>
-            )}
-            <Button buttonType="green" onClick={submitGuess}>
-              Make Guess
-            </Button>
           </div>
         )}
 
@@ -128,10 +62,6 @@ const Guess = () => {
         {winGame && <div>You Win!</div>}
 
         {!winGame && currentRound === ROUNDS && <div>Try Again!</div>}
-
-        <Button buttonType={winGame ? 'green' : 'error'} onClick={resetGame}>
-          New Game
-        </Button>
       </div>
     </>
   );
