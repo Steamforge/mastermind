@@ -1,3 +1,4 @@
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import cx from 'classnames';
 import React from 'react';
 
@@ -43,11 +44,42 @@ const Tray = () => {
     }
   }
 
-  const getPeg = color => (
-    <Peg color={color} key={color} onClick={() => updateColor(color)} />
+  const getPeg = (color, index) => (
+    <Draggable draggableId={color} index={index} key={color}>
+      {(provided, snapshot) => (
+        <>
+          <Peg
+            color={color}
+            onClick={() => updateColor(color)}
+            provided={provided}
+            snapshot={snapshot}
+          />
+          {snapshot.isDragging && (
+            <Peg
+              active
+              color={color}
+              style={{ transform: 'none !important' }}
+            />
+          )}
+        </>
+      )}
+    </Draggable>
   );
 
-  return <div className={cx(styles.root)}>{COLORS.map(getPeg)}</div>;
+  return (
+    <Droppable droppableId="colors" isDropDisabled>
+      {provided => (
+        <div
+          className={cx(styles.root)}
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+        >
+          {COLORS.map((color, index) => getPeg(color, index))}
+          <span className={cx(styles.none)}>{provided.placeholder}</span>
+        </div>
+      )}
+    </Droppable>
+  );
 };
 
 export default Tray;

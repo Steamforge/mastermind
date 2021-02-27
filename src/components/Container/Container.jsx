@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import cx from 'classnames';
+import { DragDropContext } from 'react-beautiful-dnd';
 import styles from './Container.module.scss';
 
-import { CHANGE_PEG } from '../../../actions';
+import { CHANGE_PEG, UPDATE_GUESS_ROW } from '../../../actions';
 import { INITIAL_STATE } from '../../../constants';
 import { useStateValue } from '../../../store';
 
 const Container = ({ children }) => {
-  const [{ activePeg }, dispatch] = useStateValue();
+  const [{ activeGuess, activePeg }, dispatch] = useStateValue();
 
   const observed = useRef(null);
 
@@ -35,10 +36,19 @@ const Container = ({ children }) => {
     };
   }, [activePeg, dispatch]);
 
-  const rootStyles = cx(styles.root);
+  const onDragEnd = e => {
+    const dropId = e.destination.droppableId;
+    const newGuess = [...activeGuess];
+    newGuess[dropId.charAt(dropId.length - 1)] = e.draggableId;
+    dispatch({
+      type: UPDATE_GUESS_ROW,
+      payload: { data: { guess: newGuess, peg: INITIAL_STATE.activePeg } },
+    });
+  };
+
   return (
-    <div className={rootStyles} ref={observed}>
-      {children}
+    <div className={cx(styles.root)} ref={observed}>
+      <DragDropContext onDragEnd={onDragEnd}>{children}</DragDropContext>
     </div>
   );
 };

@@ -20,6 +20,10 @@ $colors: a, b, c, d, e, f, x;
     }
   }
 
+  &.a {
+    margin-top: 0;
+  }
+
   &.active {
     border: solid 2px rebeccapurple;
   }
@@ -33,4 +37,8 @@ $colors: a, b, c, d, e, f, x;
       background-color: rebeccapurple;
     }
   }
+}
+
+.stop {
+  transform: none !important;
 }
