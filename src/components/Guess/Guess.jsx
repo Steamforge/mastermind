@@ -57,12 +57,6 @@ const Guess = () => {
             </div>
           ))}
       </div>
-
-      <div className={cx(styles.game)}>
-        {winGame && <div>You Win!</div>}
-
-        {!winGame && currentRound === ROUNDS && <div>Try Again!</div>}
-      </div>
     </>
   );
 };

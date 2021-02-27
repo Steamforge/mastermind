@@ -2,6 +2,7 @@ export const INITIAL_STATE = {
   activeGuess: [null, null, null, null],
   activePeg: [false, false, false, false],
   code: [],
+  currentPeg: 0,
   currentRound: 0,
   guessedRows: [],
   showCode: false,
