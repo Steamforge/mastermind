@@ -3,7 +3,7 @@ import cx from 'classnames';
 import React from 'react';
 import styles from './Nav.module.scss';
 
-import { COLORS, INITIAL_STATE, PEG_COUNT } from '../../../constants';
+import { COLORS, INITIAL_STATE, PEG_COUNT, ROUNDS } from '../../../constants';
 import { RESET_GAME, SUBMIT_GUESS, UPDATE_GUESS_ROW } from '../../../actions';
 import { getCode } from '../../../utils';
 import { useStateValue } from '../../../store';
@@ -38,6 +38,7 @@ const Nav = () => {
         type: SUBMIT_GUESS,
         payload: {
           data: {
+            current: INITIAL_STATE.currentPeg,
             guess: INITIAL_STATE.activeGuess,
             peg: INITIAL_STATE.activePeg,
             round: currentRound + 1,
@@ -55,6 +56,7 @@ const Nav = () => {
       payload: {
         data: {
           code: getCode(PEG_COUNT, COLORS),
+          current: INITIAL_STATE.currentPeg,
           guess: INITIAL_STATE.activeGuess,
           peg: INITIAL_STATE.activePeg,
           round: INITIAL_STATE.currentRound,
@@ -71,23 +73,30 @@ const Nav = () => {
   const rootStyles = cx(styles.root);
   return (
     <div className={rootStyles}>
-      <Button buttonType={winGame ? 'green' : 'error'} onClick={resetGame}>
-        New
-      </Button>
+      {winGame && <div className={cx(styles.game)}>You Win!</div>}
+      {!winGame && currentRound === ROUNDS && (
+        <div className={cx(styles.game)}>Try Again!</div>
+      )}
 
-      {!winGame && (
+      {!winGame && currentRound !== ROUNDS && (
+        <Button buttonType="green" onClick={submitGuess}>
+          Guess
+        </Button>
+      )}
+
+      {showCopy && currentRound !== ROUNDS && (
+        <Button onClick={() => updateGuessRow('copy')}>Copy</Button>
+      )}
+
+      {!winGame && currentRound !== ROUNDS && (
         <Button buttonType="primary" onClick={updateGuessRow}>
           Clear
         </Button>
       )}
 
-      {showCopy && <Button onClick={() => updateGuessRow('copy')}>Copy</Button>}
-
-      {!winGame && (
-        <Button buttonType="green" onClick={submitGuess}>
-          Guess
-        </Button>
-      )}
+      <Button buttonType={winGame ? 'green' : 'error'} onClick={resetGame}>
+        New
+      </Button>
     </div>
   );
 };

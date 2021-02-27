@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import { Droppable } from 'react-beautiful-dnd';
 import React from 'react';
 
 import Peg from '../Peg';
@@ -26,44 +27,45 @@ const Guess = () => {
   }
 
   return (
-    <>
-      <div className={cx(styles.root)}>
-        {guessedRows.map((row, idx) => (
-          <Row key={`row${idx}`} row={row} />
-        ))}
+    <div className={cx(styles.root)}>
+      {guessedRows.map((row, idx) => (
+        <Row key={`row${idx}`} row={row} />
+      ))}
 
-        {!winGame && currentRound < ROUNDS && (
-          <div className={cx(styles.guess)}>
-            {activeGuess.map((color, idx) => (
-              <Peg
-                active={activePeg[idx]}
-                color={color}
-                currentRow
-                key={`${idx}${color}`}
-                onClick={() => updatePeg(idx)}
-              />
-            ))}
-          </div>
-        )}
+      {!winGame && currentRound < ROUNDS && (
+        <div className={cx(styles.guess)}>
+          {activeGuess.map((color, idx) => (
+            <Droppable droppableId={`guess${idx}`} key={`${idx}${color}`}>
+              {provided => (
+                <>
+                  <Peg
+                    active={activePeg[idx]}
+                    color={color}
+                    currentRow
+                    onClick={() => updatePeg(idx)}
+                    provided={provided}
+                  />
+                  <span className={cx(styles.none)}>
+                    {provided.placeholder}
+                  </span>
+                </>
+              )}
+            </Droppable>
+          ))}
+        </div>
+      )}
 
-        {currentRound < ROUNDS &&
-          [
-            ...Array(ROUNDS - guessedRows.length - (!winGame ? 1 : 0)).keys(),
-          ].map(row => (
+      {currentRound < ROUNDS &&
+        [...Array(ROUNDS - guessedRows.length - (!winGame ? 1 : 0)).keys()].map(
+          row => (
             <div className={cx(styles.row)} key={row}>
               {[...Array(PEG_COUNT).keys()].map(peg => (
                 <Peg key={peg} />
               ))}
             </div>
-          ))}
-      </div>
-
-      <div className={cx(styles.game)}>
-        {winGame && <div>You Win!</div>}
-
-        {!winGame && currentRound === ROUNDS && <div>Try Again!</div>}
-      </div>
-    </>
+          )
+        )}
+    </div>
   );
 };
 

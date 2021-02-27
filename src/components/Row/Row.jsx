@@ -4,12 +4,12 @@ import cx from 'classnames';
 import Peg from '../Peg';
 import styles from './Row.module.scss';
 
-import { HINT_COLORS, PEG_COUNT } from '../../../constants';
+import { HINT_COLORS, PEG_COUNT, ROUNDS } from '../../../constants';
 import { CHANGE_WIN } from '../../../actions';
 import { useStateValue } from '../../../store';
 
 const Row = ({ row }) => {
-  const [{ code }, dispatch] = useStateValue();
+  const [{ code, currentRound, winGame }, dispatch] = useStateValue();
   const [guessHints, setHints] = useState(new Map());
 
   useEffect(() => {
@@ -55,13 +55,20 @@ const Row = ({ row }) => {
 
     setHints(newHints);
 
+    //win game
     if (newHints.get(HINT_COLORS.RED) === PEG_COUNT) {
       dispatch({
         type: CHANGE_WIN,
         payload: { data: { win: true, show: true } },
       });
     }
-  }, [code, dispatch, row]);
+    if (!winGame && currentRound === ROUNDS) {
+      dispatch({
+        type: CHANGE_WIN,
+        payload: { data: { win: false, show: true } },
+      });
+    }
+  }, [code, currentRound, dispatch, row, winGame]);
 
   function getHint(type, count) {
     return [...Array(count).keys()].map(hint => (

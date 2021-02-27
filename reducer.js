@@ -34,6 +34,7 @@ const reducer = (state, action) => {
         ...state,
         activeGuess: action.payload.data.guess,
         activePeg: action.payload.data.peg,
+        currentPeg: action.payload.data.current,
         currentRound: action.payload.data.round,
         guessedRows: action.payload.data.row,
       };
@@ -43,10 +44,16 @@ const reducer = (state, action) => {
         activeGuess: action.payload.data.guess,
         activePeg: action.payload.data.peg,
         code: action.payload.data.code,
+        currentPeg: action.payload.data.current,
         currentRound: action.payload.data.round,
         guessedRows: action.payload.data.row,
         showCode: action.payload.data.show,
         winGame: action.payload.data.win,
+      };
+    case actions.CHANGE_CURRENT_PEG:
+      return {
+        ...state,
+        currentPeg: action.payload.data,
       };
     default:
       return state;
