@@ -42,7 +42,13 @@ const Container = ({ children }) => {
     newGuess[dropId.charAt(dropId.length - 1)] = e.draggableId;
     dispatch({
       type: UPDATE_GUESS_ROW,
-      payload: { data: { guess: newGuess, peg: INITIAL_STATE.activePeg } },
+      payload: {
+        data: {
+          current: INITIAL_STATE.currentPeg,
+          guess: newGuess,
+          peg: INITIAL_STATE.activePeg,
+        },
+      },
     });
   };
 

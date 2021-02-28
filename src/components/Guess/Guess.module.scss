@@ -12,19 +12,81 @@
   height: 7rem;
   padding: 1rem;
 
-  * + * {
+  > * + * {
     margin-left: 1rem;
+  }
+}
+
+@keyframes hilite {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: var(--hilite);
+  }
+}
+
+@keyframes last {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: red;
   }
 }
 
 .guess {
   background-color: var(--hilite);
+  transition: background-color 0.2s;
 }
 
-.drag {
+.blink {
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-name: hilite;
+}
+
+.lastGuess {
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-name: last;
   background-color: red;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
 }
 
 .none {
   display: none;
+}
+
+.rowNum {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  width: 2rem;
+}
+
+.keyContainer {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .n {
+    align-items: center;
+    display: flex;
+    height: 2.5rem;
+    justify-content: center;
+    position: relative;
+    width: 2.5rem;
+
+    &::after {
+      background-color: transparent;
+      border-radius: 50%;
+      box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
+      content: '';
+      display: block;
+      height: 2rem;
+      width: 2rem;
+    }
+  }
 }

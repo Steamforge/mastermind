@@ -26,14 +26,27 @@ const Guess = () => {
     });
   }
 
+  const guessStyles = cx(
+    styles.guess,
+    {
+      [styles.lastGuess]: currentRound === ROUNDS - 1,
+    },
+    {
+      [styles.blink]:
+        activeGuess.filter(a => a === null).length === PEG_COUNT &&
+        currentRound < ROUNDS - 1,
+    }
+  );
+
   return (
     <div className={cx(styles.root)}>
       {guessedRows.map((row, idx) => (
-        <Row key={`row${idx}`} row={row} />
+        <Row key={`row${idx}`} row={row} rowNum={idx} />
       ))}
 
       {!winGame && currentRound < ROUNDS && (
-        <div className={cx(styles.guess)}>
+        <div className={guessStyles}>
+          <div className={cx(styles.rowNum)}>{currentRound + 1}</div>
           {activeGuess.map((color, idx) => (
             <Droppable droppableId={`guess${idx}`} key={`${idx}${color}`}>
               {provided => (
@@ -52,16 +65,31 @@ const Guess = () => {
               )}
             </Droppable>
           ))}
+          <div className={cx(styles.keyContainer)}>
+            <div className={cx(styles.n)} />
+            <div className={cx(styles.n)} />
+            <div className={cx(styles.n)} />
+            <div className={cx(styles.n)} />
+          </div>
         </div>
       )}
 
       {currentRound < ROUNDS &&
         [...Array(ROUNDS - guessedRows.length - (!winGame ? 1 : 0)).keys()].map(
-          row => (
-            <div className={cx(styles.row)} key={row}>
+          rowLeft => (
+            <div className={cx(styles.row)} key={rowLeft}>
+              <div className={cx(styles.rowNum)}>
+                {currentRound + 1 + rowLeft + (!winGame ? 1 : 0)}
+              </div>
               {[...Array(PEG_COUNT).keys()].map(peg => (
                 <Peg key={peg} />
               ))}
+              <div className={cx(styles.keyContainer)}>
+                <div className={cx(styles.n)} />
+                <div className={cx(styles.n)} />
+                <div className={cx(styles.n)} />
+                <div className={cx(styles.n)} />
+              </div>
             </div>
           )
         )}
