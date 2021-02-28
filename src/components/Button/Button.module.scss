@@ -1,18 +1,20 @@
 .root {
-  background-color: var(--light-gray);
-  border-radius: 1rem;
+  background-color: lightblue;
+  border-radius: 2rem;
   padding: 1rem 2rem;
+  box-shadow: inset -2px -2px 5px rgba(9, 4, 80, 0.5),
+    2px 2px 2px rgba(0, 0, 0, 0.25);
 
   &.primary {
-    background-color: navy;
+    background-color: cornflowerblue;
     color: var(--white);
   }
   &.green {
-    background-color: green;
+    background-color: forestgreen;
     color: var(--white);
   }
   &.error {
-    background-color: maroon;
+    background-color: indianred;
     color: var(--white);
   }
 }

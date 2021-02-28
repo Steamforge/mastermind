@@ -28,6 +28,7 @@ const reducer = (state, action) => {
         ...state,
         activeGuess: action.payload.data.guess,
         activePeg: action.payload.data.peg,
+        currentPeg: action.payload.data.current,
       };
     case actions.SUBMIT_GUESS:
       return {

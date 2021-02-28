@@ -20,6 +20,7 @@ const Nav = () => {
       type: UPDATE_GUESS_ROW,
       payload: {
         data: {
+          current: INITIAL_STATE.currentPeg,
           guess:
             type === 'copy'
               ? guessedRows[guessedRows.length - 1]

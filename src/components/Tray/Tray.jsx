@@ -23,7 +23,13 @@ const Tray = () => {
       );
       dispatch({
         type: UPDATE_GUESS_ROW,
-        payload: { data: { guess: newGuess, peg: INITIAL_STATE.activePeg } },
+        payload: {
+          data: {
+            current: INITIAL_STATE.currentPeg,
+            guess: newGuess,
+            peg: INITIAL_STATE.activePeg,
+          },
+        },
       });
     } else {
       const newGuess = [...activeGuess];

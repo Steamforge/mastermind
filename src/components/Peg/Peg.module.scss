@@ -4,8 +4,9 @@ $colors: a, b, c, d, e, f, x;
   align-items: center;
   background-color: var(--light-gray);
   border-radius: 50%;
-  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 5px 5px 5px rgba(46, 19, 3, 0.25);
   display: flex;
+  flex-shrink: 0;
   font-size: 2rem;
   height: 4rem;
   justify-content: center;
@@ -15,7 +16,7 @@ $colors: a, b, c, d, e, f, x;
   @each $color in $colors {
     &.#{$color} {
       background-color: var(--color-#{$color});
-      box-shadow: inset -2px -2px 2px rgba(0, 0, 0, 0.5),
+      box-shadow: inset -3px -3px 5px rgba(0, 0, 100, 0.5),
         2px 2px 2px rgba(0, 0, 0, 0.25);
     }
   }

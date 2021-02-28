@@ -8,7 +8,7 @@ import { HINT_COLORS, PEG_COUNT, ROUNDS } from '../../../constants';
 import { CHANGE_WIN } from '../../../actions';
 import { useStateValue } from '../../../store';
 
-const Row = ({ row }) => {
+const Row = ({ row, rowNum }) => {
   const [{ code, currentRound, winGame }, dispatch] = useStateValue();
   const [guessHints, setHints] = useState(new Map());
 
@@ -16,6 +16,7 @@ const Row = ({ row }) => {
     const newHints = new Map([
       [HINT_COLORS.RED, 0],
       [HINT_COLORS.WHITE, 0],
+      [HINT_COLORS.NONE, 4],
     ]);
     const codeList = new Map();
     const guessList = new Map();
@@ -53,6 +54,14 @@ const Row = ({ row }) => {
       newHints.get(HINT_COLORS.WHITE) - newHints.get(HINT_COLORS.RED)
     );
 
+    //subtract red/white hints from none
+    newHints.set(
+      HINT_COLORS.NONE,
+      newHints.get(HINT_COLORS.NONE) -
+        newHints.get(HINT_COLORS.RED) -
+        newHints.get(HINT_COLORS.WHITE)
+    );
+
     setHints(newHints);
 
     //win game
@@ -76,8 +85,13 @@ const Row = ({ row }) => {
     ));
   }
 
+  const rowStyles = cx(styles.root, {
+    [styles.win]: winGame && rowNum === currentRound - 1,
+  });
+
   return (
-    <div className={cx(styles.root)}>
+    <div className={rowStyles}>
+      <div className={cx(styles.rowNum)}>{rowNum + 1}</div>
       {row.map((color, idx) => (
         <Peg color={color} key={`${idx}${color}`} />
       ))}
