@@ -1,10 +1,4 @@
 .root {
-  left: -6rem;
-  position: absolute;
-  top: 6rem;
-}
-
-.tray {
   background-color: var(--white);
   border-bottom-left-radius: 1rem;
   border-top-left-radius: 1rem;
@@ -12,7 +6,14 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  position: fixed;
+  position: absolute;
+  transition: left 0.2s;
+  left: 6rem;
+  top: 8rem;
+
+  &.active {
+    left: 0;
+  }
 
   * + * {
     margin-top: 1rem;

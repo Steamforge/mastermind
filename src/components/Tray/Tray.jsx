@@ -15,7 +15,10 @@ import { COLORS, INITIAL_STATE, PEG_COUNT } from '../../../constants';
 import { useStateValue } from '../../../store';
 
 const Tray = () => {
-  const [{ activeGuess, activePeg, currentPeg }, dispatch] = useStateValue();
+  const [
+    { activeGuess, activePeg, code, currentPeg, winGame },
+    dispatch,
+  ] = useStateValue();
 
   function updateColor(color) {
     if (activePeg.indexOf(true) > -1) {
@@ -51,8 +54,15 @@ const Tray = () => {
     }
   }
 
+  const isNewGame = () => code.length === 0;
+
   const getPeg = (color, index) => (
-    <Draggable draggableId={color} index={index} key={color}>
+    <Draggable
+      draggableId={color}
+      index={index}
+      isDragDisabled={isNewGame() || winGame}
+      key={color}
+    >
       {(provided, snapshot) => (
         <>
           <Peg
@@ -76,15 +86,13 @@ const Tray = () => {
   return (
     <Droppable droppableId="colors" isDropDisabled>
       {provided => (
-        <div className={cx(styles.root)}>
-          <div
-            className={cx(styles.tray)}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            {COLORS.map((color, index) => getPeg(color, index))}
-            <DragPlaceholder provided={provided} />
-          </div>
+        <div
+          className={cx(styles.root, { [styles.active]: !isNewGame() })}
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+        >
+          {COLORS.map((color, index) => getPeg(color, index))}
+          <DragPlaceholder provided={provided} />
         </div>
       )}
     </Droppable>

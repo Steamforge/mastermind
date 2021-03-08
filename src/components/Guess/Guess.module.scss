@@ -3,7 +3,9 @@
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   overflow: hidden;
+  position: relative;
   width: 100%;
+  z-index: 1;
 }
 
 .guess,

@@ -82,4 +82,5 @@ html {
 }
 body {
   background-color: var(--darker-gray);
+  margin: 0;
 }

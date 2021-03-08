@@ -2,6 +2,7 @@ import React from 'react';
 
 import Code from '../components/Code';
 import Container from '../components/Container';
+import DragContext from '../components/DragContext';
 import GridArea from '../components/GridArea';
 import GridContainer from '../components/GridContainer';
 import Guess from '../components/Guess';
@@ -16,21 +17,28 @@ import { StateProvider } from '../../store';
 
 const IndexPage = () => (
   <StateProvider initialState={INITIAL_STATE} reducer={reducer}>
-    <Layout>
-      <GridContainer>
-        <GridArea area="game">
-          <Container>
-            <Code />
-            <Guess />
+    <DragContext>
+      <Layout>
+        <GridContainer>
+          <GridArea area="tray">
             <Tray />
+          </GridArea>
+          <GridArea area="game">
+            <Container>
+              <Code />
+              <Guess />
+            </Container>
+          </GridArea>
+          <GridArea area="nav">
             <Nav />
-          </Container>
-        </GridArea>
-        <GridArea area="score">
-          <Scoreboard />
-        </GridArea>
-      </GridContainer>
-    </Layout>
+          </GridArea>
+          <GridArea area="score">
+            <Scoreboard />
+          </GridArea>
+        </GridContainer>
+      </Layout>
+    </DragContext>
   </StateProvider>
 );
+
 export default IndexPage;

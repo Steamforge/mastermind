@@ -29,7 +29,11 @@ const Code = ({ show }) => {
     return code;
   };
 
-  return <div className={cx(styles.root)}>{getCode().map(getPeg)}</div>;
+  return (
+    <div className={cx(styles.root, { [styles.active]: isShown() })}>
+      {getCode().map(getPeg)}
+    </div>
+  );
 };
 
 export default Code;
