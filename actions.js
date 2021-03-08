@@ -7,3 +7,4 @@ export const RESET_GAME = 'RESET_GAME';
 export const SHOW_CODE = 'SHOW_CODE';
 export const SUBMIT_GUESS = 'SUBMIT_GUESS';
 export const UPDATE_GUESS_ROW = 'UPDATE_GUESS_ROW';
+export const UPDATE_SCORE = 'UPDATE_SCORE';

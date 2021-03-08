@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+}
+
+.game {
+  grid-area: game;
+}
+
+.score {
+  align-self: start;
+  grid-area: score;
+  justify-self: end;
+}

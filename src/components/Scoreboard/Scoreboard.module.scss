@@ -1,0 +1,13 @@
+.root {
+  background: var(--white);
+  border-radius: 1rem;
+  font-size: 2rem;
+  overflow: auto;
+  padding: 1rem;
+
+  th {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0 8px;
+    text-align: center;
+  }
+}

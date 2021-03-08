@@ -1,4 +1,10 @@
 .root {
+  position: absolute;
+  right: 0;
+  top: 6rem;
+}
+
+.nav {
   background-color: var(--white);
   border-bottom-right-radius: 1rem;
   border-top-right-radius: 1rem;
@@ -6,9 +12,7 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  position: absolute;
-  right: -15rem;
-  top: 6rem;
+  position: fixed;
   width: 15rem;
 
   * + * {

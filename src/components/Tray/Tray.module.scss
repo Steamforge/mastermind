@@ -1,14 +1,18 @@
 .root {
-  border-bottom-left-radius: 1rem;
-  border-top-left-radius: 1rem;
-  display: flex;
-  flex-direction: column;
   left: -6rem;
-  padding: 1rem;
   position: absolute;
   top: 6rem;
+}
+
+.tray {
   background-color: var(--white);
+  border-bottom-left-radius: 1rem;
+  border-top-left-radius: 1rem;
   box-shadow: inset -2px 0 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  position: fixed;
 
   * + * {
     margin-top: 1rem;

@@ -75,13 +75,15 @@ const Tray = () => {
   return (
     <Droppable droppableId="colors" isDropDisabled>
       {provided => (
-        <div
-          className={cx(styles.root)}
-          ref={provided.innerRef}
-          {...provided.droppableProps}
-        >
-          {COLORS.map((color, index) => getPeg(color, index))}
-          <span className={cx(styles.none)}>{provided.placeholder}</span>
+        <div className={cx(styles.root)}>
+          <div
+            className={cx(styles.tray)}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {COLORS.map((color, index) => getPeg(color, index))}
+            <span className={cx(styles.none)}>{provided.placeholder}</span>
+          </div>
         </div>
       )}
     </Droppable>

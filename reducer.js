@@ -47,6 +47,7 @@ const reducer = (state, action) => {
         code: action.payload.data.code,
         currentPeg: action.payload.data.current,
         currentRound: action.payload.data.round,
+        currentTime: action.payload.data.time,
         guessedRows: action.payload.data.row,
         showCode: action.payload.data.show,
         winGame: action.payload.data.win,
@@ -55,6 +56,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         currentPeg: action.payload.data,
+      };
+    case actions.UPDATE_SCORE:
+      return {
+        ...state,
+        scores: action.payload,
       };
     default:
       return state;

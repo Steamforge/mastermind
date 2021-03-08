@@ -4,15 +4,17 @@ import React from 'react';
 
 import Peg from '../Peg';
 import Row from '../Row';
+import RowNum from '../RowNum';
 import styles from './Guess.module.scss';
 
 import { PEG_COUNT, ROUNDS } from '../../../constants';
 import { CHANGE_PEG } from '../../../actions';
+import { getArrayFromNum } from '../../../utils';
 import { useStateValue } from '../../../store';
 
 const Guess = () => {
   const [
-    { activeGuess, activePeg, currentRound, guessedRows, winGame },
+    { activeGuess, activePeg, code, currentRound, guessedRows, winGame },
     dispatch,
   ] = useStateValue();
 
@@ -38,15 +40,34 @@ const Guess = () => {
     }
   );
 
+  const isNewGame = () => code.length === 0;
+  const isRoundNotOver = () => currentRound < ROUNDS;
+  const showGuess = () => !isNewGame() && !winGame && isRoundNotOver();
+
+  //empty pegs
+  const getEmptyPegs = pegCount =>
+    getArrayFromNum(pegCount).map(peg => <Peg key={peg} />);
+
+  //empty key pegs
+  const getEmptyKeyPegs = pegCount => (
+    <div className={cx(styles.keyContainer)}>
+      {getArrayFromNum(pegCount).map(peg => (
+        <div className={cx(styles.n)} key={peg} />
+      ))}
+    </div>
+  );
+
+  //guessed rows
+  const getGuessedRows = rows =>
+    rows.map((row, idx) => <Row key={`row${idx}`} row={row} rowNum={idx} />);
+
   return (
     <div className={cx(styles.root)}>
-      {guessedRows.map((row, idx) => (
-        <Row key={`row${idx}`} row={row} rowNum={idx} />
-      ))}
+      {getGuessedRows(guessedRows)}
 
-      {!winGame && currentRound < ROUNDS && (
+      {showGuess() && (
         <div className={guessStyles}>
-          <div className={cx(styles.rowNum)}>{currentRound + 1}</div>
+          <RowNum num={currentRound + 1} />
           {activeGuess.map((color, idx) => (
             <Droppable droppableId={`guess${idx}`} key={`${idx}${color}`}>
               {provided => (
@@ -65,34 +86,25 @@ const Guess = () => {
               )}
             </Droppable>
           ))}
-          <div className={cx(styles.keyContainer)}>
-            <div className={cx(styles.n)} />
-            <div className={cx(styles.n)} />
-            <div className={cx(styles.n)} />
-            <div className={cx(styles.n)} />
-          </div>
+
+          {getEmptyKeyPegs(PEG_COUNT)}
         </div>
       )}
 
-      {currentRound < ROUNDS &&
-        [...Array(ROUNDS - guessedRows.length - (!winGame ? 1 : 0)).keys()].map(
-          rowLeft => (
-            <div className={cx(styles.row)} key={rowLeft}>
-              <div className={cx(styles.rowNum)}>
-                {currentRound + 1 + rowLeft + (!winGame ? 1 : 0)}
-              </div>
-              {[...Array(PEG_COUNT).keys()].map(peg => (
-                <Peg key={peg} />
-              ))}
-              <div className={cx(styles.keyContainer)}>
-                <div className={cx(styles.n)} />
-                <div className={cx(styles.n)} />
-                <div className={cx(styles.n)} />
-                <div className={cx(styles.n)} />
-              </div>
-            </div>
-          )
-        )}
+      {isRoundNotOver() &&
+        getArrayFromNum(
+          ROUNDS - guessedRows.length - (!winGame && !isNewGame() ? 1 : 0)
+        ).map(rowLeft => (
+          <div className={cx(styles.row)} key={rowLeft}>
+            <RowNum
+              num={
+                currentRound + 1 + rowLeft + (!winGame && !isNewGame() ? 1 : 0)
+              }
+            />
+            {getEmptyPegs(PEG_COUNT)}
+            {getEmptyKeyPegs(PEG_COUNT)}
+          </div>
+        ))}
     </div>
   );
 };
