@@ -4,7 +4,9 @@ export const INITIAL_STATE = {
   code: [],
   currentPeg: 0,
   currentRound: 0,
+  currentTime: null,
   guessedRows: [],
+  scores: [],
   showCode: false,
   winGame: false,
 };

@@ -1,17 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import cx from 'classnames';
-import { DragDropContext } from 'react-beautiful-dnd';
 import styles from './Container.module.scss';
 
-import { CHANGE_PEG, UPDATE_GUESS_ROW } from '../../../actions';
+import { CHANGE_PEG } from '../../../actions';
 import { INITIAL_STATE } from '../../../constants';
 import { useStateValue } from '../../../store';
 
 const Container = ({ children }) => {
-  const [{ activeGuess, activePeg }, dispatch] = useStateValue();
+  const [{ activePeg }, dispatch] = useStateValue();
 
+  //all of this is remove the active state when clicked outside the container
   const observed = useRef(null);
-
   useEffect(() => {
     const handleClickOutside = e => {
       if (observed.current.contains(e.target)) {
@@ -36,25 +35,9 @@ const Container = ({ children }) => {
     };
   }, [activePeg, dispatch]);
 
-  const onDragEnd = e => {
-    const dropId = e.destination.droppableId;
-    const newGuess = [...activeGuess];
-    newGuess[dropId.charAt(dropId.length - 1)] = e.draggableId;
-    dispatch({
-      type: UPDATE_GUESS_ROW,
-      payload: {
-        data: {
-          current: INITIAL_STATE.currentPeg,
-          guess: newGuess,
-          peg: INITIAL_STATE.activePeg,
-        },
-      },
-    });
-  };
-
   return (
     <div className={cx(styles.root)} ref={observed}>
-      <DragDropContext onDragEnd={onDragEnd}>{children}</DragDropContext>
+      {children}
     </div>
   );
 };

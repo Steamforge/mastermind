@@ -2,17 +2,20 @@ import cx from 'classnames';
 import { Droppable } from 'react-beautiful-dnd';
 import React from 'react';
 
+import DragPlaceholder from '../DragPlaceholder';
 import Peg from '../Peg';
 import Row from '../Row';
+import RowNum from '../RowNum';
 import styles from './Guess.module.scss';
 
 import { PEG_COUNT, ROUNDS } from '../../../constants';
 import { CHANGE_PEG } from '../../../actions';
+import { getArrayFromNum } from '../../../utils';
 import { useStateValue } from '../../../store';
 
 const Guess = () => {
   const [
-    { activeGuess, activePeg, currentRound, guessedRows, winGame },
+    { activeGuess, activePeg, code, currentRound, guessedRows, winGame },
     dispatch,
   ] = useStateValue();
 
@@ -38,15 +41,32 @@ const Guess = () => {
     }
   );
 
+  const isNewGame = () => code.length === 0;
+  const isRoundNotOver = () => currentRound < ROUNDS;
+  const showGuess = () => !isNewGame() && !winGame && isRoundNotOver();
+
+  //empty key pegs
+  const getEmptyKeyPegs = pegCount => (
+    <div className={cx(styles.keyContainer)}>
+      {getArrayFromNum(pegCount).map(peg => (
+        <div className={cx(styles.n)} key={peg} />
+      ))}
+    </div>
+  );
+
+  //guessed rows
+  const getGuessedRows = rows =>
+    rows.map((row, idx) => <Row key={`row${idx}`} row={row} rowNum={idx} />);
+
+  const getWinRowAdjust = () => (!winGame && !isNewGame() ? 1 : 0);
+
   return (
     <div className={cx(styles.root)}>
-      {guessedRows.map((row, idx) => (
-        <Row key={`row${idx}`} row={row} rowNum={idx} />
-      ))}
+      {getGuessedRows(guessedRows)}
 
-      {!winGame && currentRound < ROUNDS && (
+      {showGuess() && (
         <div className={guessStyles}>
-          <div className={cx(styles.rowNum)}>{currentRound + 1}</div>
+          <RowNum num={currentRound + 1} />
           {activeGuess.map((color, idx) => (
             <Droppable droppableId={`guess${idx}`} key={`${idx}${color}`}>
               {provided => (
@@ -58,41 +78,26 @@ const Guess = () => {
                     onClick={() => updatePeg(idx)}
                     provided={provided}
                   />
-                  <span className={cx(styles.none)}>
-                    {provided.placeholder}
-                  </span>
+                  <DragPlaceholder provided={provided} />
                 </>
               )}
             </Droppable>
           ))}
-          <div className={cx(styles.keyContainer)}>
-            <div className={cx(styles.n)} />
-            <div className={cx(styles.n)} />
-            <div className={cx(styles.n)} />
-            <div className={cx(styles.n)} />
-          </div>
+
+          {getEmptyKeyPegs(PEG_COUNT)}
         </div>
       )}
 
-      {currentRound < ROUNDS &&
-        [...Array(ROUNDS - guessedRows.length - (!winGame ? 1 : 0)).keys()].map(
-          rowLeft => (
-            <div className={cx(styles.row)} key={rowLeft}>
-              <div className={cx(styles.rowNum)}>
-                {currentRound + 1 + rowLeft + (!winGame ? 1 : 0)}
-              </div>
-              {[...Array(PEG_COUNT).keys()].map(peg => (
-                <Peg key={peg} />
-              ))}
-              <div className={cx(styles.keyContainer)}>
-                <div className={cx(styles.n)} />
-                <div className={cx(styles.n)} />
-                <div className={cx(styles.n)} />
-                <div className={cx(styles.n)} />
-              </div>
-            </div>
-          )
-        )}
+      {isRoundNotOver() &&
+        getArrayFromNum(
+          ROUNDS - guessedRows.length - getWinRowAdjust()
+        ).map(rowLeft => (
+          <Row
+            key={rowLeft}
+            row={getArrayFromNum(PEG_COUNT).map(() => null)}
+            rowNum={currentRound + rowLeft + getWinRowAdjust()}
+          />
+        ))}
     </div>
   );
 };

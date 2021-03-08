@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 
 import Peg from '../Peg';
+import RowNum from '../RowNum';
 import styles from './Row.module.scss';
 
-import { HINT_COLORS, PEG_COUNT, ROUNDS } from '../../../constants';
-import { CHANGE_WIN } from '../../../actions';
+import { getArrayFromNum } from '../../../utils';
+import { HINT_COLORS } from '../../../constants';
 import { useStateValue } from '../../../store';
 
 const Row = ({ row, rowNum }) => {
@@ -33,7 +34,7 @@ const Row = ({ row, rowNum }) => {
     //find color/position matching
     row.forEach((color, idx) => {
       guessList.set(color, guessList.has(color) ? guessList.get(color) + 1 : 1);
-      if (color === code[idx].color) {
+      if (color === code[idx]?.color) {
         newHints.set(HINT_COLORS.RED, newHints.get(HINT_COLORS.RED) + 1);
       }
     });
@@ -63,35 +64,24 @@ const Row = ({ row, rowNum }) => {
     );
 
     setHints(newHints);
-
-    //win game
-    if (newHints.get(HINT_COLORS.RED) === PEG_COUNT) {
-      dispatch({
-        type: CHANGE_WIN,
-        payload: { data: { win: true, show: true } },
-      });
-    }
-    if (!winGame && currentRound === ROUNDS) {
-      dispatch({
-        type: CHANGE_WIN,
-        payload: { data: { win: false, show: true } },
-      });
-    }
   }, [code, currentRound, dispatch, row, winGame]);
 
-  function getHint(type, count) {
-    return [...Array(count).keys()].map(hint => (
+  const getHint = (type, count) =>
+    getArrayFromNum(count).map(hint => (
       <div className={cx(styles[type])} key={hint} />
     ));
-  }
 
-  const rowStyles = cx(styles.root, {
-    [styles.win]: winGame && rowNum === currentRound - 1,
-  });
+  const rowStyles = cx(
+    styles.root,
+    {
+      [styles.win]: winGame && rowNum === currentRound - 1,
+    },
+    { [styles.guessed]: rowNum < currentRound }
+  );
 
   return (
     <div className={rowStyles}>
-      <div className={cx(styles.rowNum)}>{rowNum + 1}</div>
+      <RowNum num={rowNum + 1} />
       {row.map((color, idx) => (
         <Peg color={color} key={`${idx}${color}`} />
       ))}

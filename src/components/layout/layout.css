@@ -1,10 +1,11 @@
 :root {
   --white: #f0e7e7;
+  --red: red;
   --light-gray: #eeeeee;
   --dark-gray: #333333;
   --darker-gray: #111111;
   --text-color: var(--dark-gray);
-  --font-main: 'Open Sans', sans-serif;
+
   --color-a: lightsalmon;
   --color-b: lightseagreen;
   --color-c: palevioletred;
@@ -12,8 +13,22 @@
   --color-e: goldenrod;
   --color-f: gray;
   --color-x: var(--darker-gray);
+
   --hilite: hotpink;
+  --hilite-red: var(--red);
+  --hilite-green: lightgreen;
+  --hilite-purple: rebeccapurple;
+
+  --button-default: lightblue;
+  --button-blue: cornflowerblue;
+  --button-green: forestgreen;
+  --button-red: indianred;
+
+  --shadow-25: rgba(0, 0, 0, 0.25);
+  --shadow-50: rgba(0, 0, 0, 0.5);
+
   --base-font-size: 8px;
+  --font-main: 'Open Sans', sans-serif;
 }
 
 *,
@@ -67,4 +82,5 @@ html {
 }
 body {
   background-color: var(--darker-gray);
+  margin: 0;
 }

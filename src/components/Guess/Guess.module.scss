@@ -1,8 +1,11 @@
 .root {
+  background-color: var(--white);
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  overflow: hidden;
+  position: relative;
   width: 100%;
-  background-color: var(--white);
+  z-index: 1;
 }
 
 .guess,
@@ -31,7 +34,7 @@
     background-color: transparent;
   }
   to {
-    background-color: red;
+    background-color: var(--hilite-red);
   }
 }
 
@@ -50,26 +53,16 @@
   animation-duration: 1s;
   animation-iteration-count: 1;
   animation-name: last;
-  background-color: red;
+  background-color: var(--hilite-red);
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
-}
-
-.none {
-  display: none;
-}
-
-.rowNum {
-  flex-shrink: 0;
-  font-size: 1.5rem;
-  width: 2rem;
 }
 
 .keyContainer {
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
-  width: 100%;
+  width: 5rem;
 
   .n {
     align-items: center;
@@ -82,7 +75,7 @@
     &::after {
       background-color: transparent;
       border-radius: 50%;
-      box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
+      box-shadow: inset 2px 2px 2px var(--shadow-25);
       content: '';
       display: block;
       height: 2rem;

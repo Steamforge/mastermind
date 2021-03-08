@@ -3,16 +3,35 @@ import cx from 'classnames';
 import React from 'react';
 import styles from './Nav.module.scss';
 
+import {
+  CHANGE_WIN,
+  RESET_GAME,
+  SUBMIT_GUESS,
+  UPDATE_GUESS_ROW,
+  UPDATE_SCORE,
+} from '../../../actions';
 import { COLORS, INITIAL_STATE, PEG_COUNT, ROUNDS } from '../../../constants';
-import { RESET_GAME, SUBMIT_GUESS, UPDATE_GUESS_ROW } from '../../../actions';
 import { getCode } from '../../../utils';
 import { useStateValue } from '../../../store';
 
 const Nav = () => {
   const [
-    { activeGuess, currentRound, guessedRows, winGame },
+    {
+      activeGuess,
+      code,
+      currentRound,
+      currentTime,
+      guessedRows,
+      scores,
+      winGame,
+    },
     dispatch,
   ] = useStateValue();
+
+  const MESSAGE = {
+    LOSE: 'Try Again!',
+    WIN: 'You Win!',
+  };
 
   //clear or copy
   function updateGuessRow(type) {
@@ -31,6 +50,56 @@ const Nav = () => {
     });
   }
 
+  const getElapsedTime = time => Math.abs(Date.now() - time);
+
+  function checkWin() {
+    //win game
+    const isWin = () =>
+      code.filter((c, idx) => c.color === activeGuess[idx]).length ===
+      PEG_COUNT;
+
+    if (isWin()) {
+      dispatch({
+        type: CHANGE_WIN,
+        payload: { data: { win: true, show: true } },
+      });
+      const newScore = [
+        ...scores,
+        {
+          id: scores.length,
+          win: true,
+          guesses: currentRound + 1,
+          time: getElapsedTime(currentTime),
+        },
+      ];
+      dispatch({
+        type: UPDATE_SCORE,
+        payload: newScore,
+      });
+    }
+
+    if (!isWin() && currentRound === ROUNDS - 1) {
+      dispatch({
+        type: CHANGE_WIN,
+        payload: { data: { win: false, show: true } },
+      });
+
+      const newScore = [
+        ...scores,
+        {
+          id: scores.length,
+          win: false,
+          guesses: ROUNDS,
+          time: getElapsedTime(currentTime),
+        },
+      ];
+      dispatch({
+        type: UPDATE_SCORE,
+        payload: newScore,
+      });
+    }
+  }
+
   //make a guess
   function submitGuess() {
     if (activeGuess.indexOf(null) === -1) {
@@ -47,6 +116,7 @@ const Nav = () => {
           },
         },
       });
+      checkWin();
     }
   }
 
@@ -63,41 +133,46 @@ const Nav = () => {
           round: INITIAL_STATE.currentRound,
           row: INITIAL_STATE.guessedRows,
           show: INITIAL_STATE.showCode,
+          time: Date.now(),
           win: INITIAL_STATE.winGame,
         },
       },
     });
   }
 
-  const showCopy = !winGame && guessedRows.length > 0;
+  const isNewGame = () => code.length === 0;
+  const showCopy = () =>
+    !winGame &&
+    guessedRows.length > 0 &&
+    currentRound !== ROUNDS &&
+    !isNewGame();
+  const showGuess = () => !winGame && currentRound !== ROUNDS && !isNewGame();
 
-  const rootStyles = cx(styles.root);
+  const getMessage = message => (
+    <div className={cx(styles.game)}>{message}</div>
+  );
+
   return (
-    <div className={rootStyles}>
-      {winGame && <div className={cx(styles.game)}>You Win!</div>}
-      {!winGame && currentRound === ROUNDS && (
-        <div className={cx(styles.game)}>Try Again!</div>
+    <div className={cx(styles.root)}>
+      {winGame && getMessage(MESSAGE.WIN)}
+      {!winGame && currentRound === ROUNDS && getMessage(MESSAGE.LOSE)}
+
+      {showCopy() && (
+        <Button label="Copy" onClick={() => updateGuessRow('copy')} />
       )}
 
-      {!winGame && currentRound !== ROUNDS && (
-        <Button buttonType="green" onClick={submitGuess}>
-          Guess
-        </Button>
+      {showGuess() && (
+        <>
+          <Button buttonType="primary" label="Clear" onClick={updateGuessRow} />
+          <Button buttonType="green" label="Guess" onClick={submitGuess} />
+        </>
       )}
 
-      {showCopy && currentRound !== ROUNDS && (
-        <Button onClick={() => updateGuessRow('copy')}>Copy</Button>
-      )}
-
-      {!winGame && currentRound !== ROUNDS && (
-        <Button buttonType="primary" onClick={updateGuessRow}>
-          Clear
-        </Button>
-      )}
-
-      <Button buttonType={winGame ? 'green' : 'error'} onClick={resetGame}>
-        New
-      </Button>
+      <Button
+        buttonType={winGame || isNewGame() ? 'green' : 'error'}
+        label="New"
+        onClick={resetGame}
+      />
     </div>
   );
 };

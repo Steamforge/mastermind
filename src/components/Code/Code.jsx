@@ -1,30 +1,39 @@
-import React, { useEffect } from 'react';
 import cx from 'classnames';
 import Peg from '../Peg';
+import React from 'react';
 import styles from './Code.module.scss';
 
-import { COLORS, PEG_COUNT } from '../../../constants';
-import { CHANGE_CODE } from '../../../actions';
-import { getCode } from '../../../utils';
+import { getArrayFromNum } from '../../../utils';
+import { PEG_COUNT } from '../../../constants';
 import { useStateValue } from '../../../store';
 
 const Code = ({ show }) => {
-  const [{ code, showCode }, dispatch] = useStateValue();
+  const [{ code, showCode }] = useStateValue();
 
-  useEffect(() => {
-    dispatch({
-      type: CHANGE_CODE,
-      payload: { data: getCode(PEG_COUNT, COLORS) },
-    });
-  }, [dispatch]);
+  //show the code on game end or through prop
+  const isShown = () => show || showCode;
 
-  const isShown = show || showCode;
-
+  //build a peg
   const getPeg = ({ color, id }) => (
-    <Peg color={isShown ? color : 'x'} key={id} />
+    <Peg color={isShown() ? color : 'x'} key={id} />
   );
 
-  return <div className={cx(styles.root)}>{code.map(getPeg)}</div>;
+  //build an empty code if there isn't one
+  const getCode = () => {
+    if (code.length === 0) {
+      return getArrayFromNum(PEG_COUNT).map(peg => ({
+        color: null,
+        id: peg,
+      }));
+    }
+    return code;
+  };
+
+  return (
+    <div className={cx(styles.root, { [styles.active]: isShown() })}>
+      {getCode().map(getPeg)}
+    </div>
+  );
 };
 
 export default Code;

@@ -1,0 +1,15 @@
+.root {
+  background: var(--white);
+  border-radius: 1rem;
+  font-size: 2rem;
+  padding: 1rem;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  th {
+    background-color: var(--shadow-25);
+    padding: 0 8px;
+    text-align: center;
+  }
+}

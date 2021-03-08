@@ -1,11 +1,19 @@
 .root {
   align-items: center;
-  background-color: #333;
+  background-color: var(--dark-gray);
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   display: flex;
   justify-content: center;
   padding: 1rem;
+  transition: background-color 0.2s;
+
+  &.active {
+    background-color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
 
   * + * {
     margin-left: 1rem;
