@@ -2,6 +2,7 @@ import cx from 'classnames';
 import { Droppable } from 'react-beautiful-dnd';
 import React from 'react';
 
+import DragPlaceholder from '../DragPlaceholder';
 import Peg from '../Peg';
 import Row from '../Row';
 import RowNum from '../RowNum';
@@ -44,10 +45,6 @@ const Guess = () => {
   const isRoundNotOver = () => currentRound < ROUNDS;
   const showGuess = () => !isNewGame() && !winGame && isRoundNotOver();
 
-  //empty pegs
-  const getEmptyPegs = pegCount =>
-    getArrayFromNum(pegCount).map(peg => <Peg key={peg} />);
-
   //empty key pegs
   const getEmptyKeyPegs = pegCount => (
     <div className={cx(styles.keyContainer)}>
@@ -60,6 +57,8 @@ const Guess = () => {
   //guessed rows
   const getGuessedRows = rows =>
     rows.map((row, idx) => <Row key={`row${idx}`} row={row} rowNum={idx} />);
+
+  const getWinRowAdjust = () => (!winGame && !isNewGame() ? 1 : 0);
 
   return (
     <div className={cx(styles.root)}>
@@ -79,9 +78,7 @@ const Guess = () => {
                     onClick={() => updatePeg(idx)}
                     provided={provided}
                   />
-                  <span className={cx(styles.none)}>
-                    {provided.placeholder}
-                  </span>
+                  <DragPlaceholder provided={provided} />
                 </>
               )}
             </Droppable>
@@ -93,17 +90,13 @@ const Guess = () => {
 
       {isRoundNotOver() &&
         getArrayFromNum(
-          ROUNDS - guessedRows.length - (!winGame && !isNewGame() ? 1 : 0)
+          ROUNDS - guessedRows.length - getWinRowAdjust()
         ).map(rowLeft => (
-          <div className={cx(styles.row)} key={rowLeft}>
-            <RowNum
-              num={
-                currentRound + 1 + rowLeft + (!winGame && !isNewGame() ? 1 : 0)
-              }
-            />
-            {getEmptyPegs(PEG_COUNT)}
-            {getEmptyKeyPegs(PEG_COUNT)}
-          </div>
+          <Row
+            key={rowLeft}
+            row={getArrayFromNum(PEG_COUNT).map(() => null)}
+            rowNum={currentRound + rowLeft + getWinRowAdjust()}
+          />
         ))}
     </div>
   );

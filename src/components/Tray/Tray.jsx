@@ -2,6 +2,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import cx from 'classnames';
 import React from 'react';
 
+import DragPlaceholder from '../DragPlaceholder';
 import Peg from '../Peg';
 import styles from './Tray.module.scss';
 
@@ -82,7 +83,7 @@ const Tray = () => {
             {...provided.droppableProps}
           >
             {COLORS.map((color, index) => getPeg(color, index))}
-            <span className={cx(styles.none)}>{provided.placeholder}</span>
+            <DragPlaceholder provided={provided} />
           </div>
         </div>
       )}

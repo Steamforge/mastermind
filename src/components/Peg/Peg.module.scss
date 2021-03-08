@@ -4,7 +4,7 @@ $colors: a, b, c, d, e, f, x;
   align-items: center;
   background-color: var(--light-gray);
   border-radius: 50%;
-  box-shadow: inset 5px 5px 5px rgba(46, 19, 3, 0.25);
+  box-shadow: inset 5px 5px 5px var(--shadow-25);
   display: flex;
   flex-shrink: 0;
   font-size: 2rem;
@@ -16,8 +16,8 @@ $colors: a, b, c, d, e, f, x;
   @each $color in $colors {
     &.#{$color} {
       background-color: var(--color-#{$color});
-      box-shadow: inset -3px -3px 5px rgba(0, 0, 100, 0.5),
-        2px 2px 2px rgba(0, 0, 0, 0.25);
+      box-shadow: inset -3px -3px 5px var(--shadow-50),
+        2px 2px 2px var(--shadow-25);
     }
   }
 
@@ -26,7 +26,7 @@ $colors: a, b, c, d, e, f, x;
   }
 
   &.active {
-    border: solid 2px rebeccapurple;
+    border: solid 2px var(--hilite-purple);
   }
 
   &.link {
@@ -35,7 +35,7 @@ $colors: a, b, c, d, e, f, x;
 
   &.current {
     &:hover {
-      background-color: rebeccapurple;
+      background-color: var(--hilite-purple);
     }
   }
 }

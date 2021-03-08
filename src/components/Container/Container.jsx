@@ -10,8 +10,8 @@ import { useStateValue } from '../../../store';
 const Container = ({ children }) => {
   const [{ activeGuess, activePeg }, dispatch] = useStateValue();
 
+  //all of this is remove the active state when clicked outside the container
   const observed = useRef(null);
-
   useEffect(() => {
     const handleClickOutside = e => {
       if (observed.current.contains(e.target)) {
@@ -36,6 +36,7 @@ const Container = ({ children }) => {
     };
   }, [activePeg, dispatch]);
 
+  //update the guess when a color is dragged
   const onDragEnd = e => {
     const dropId = e.destination.droppableId;
     const newGuess = [...activeGuess];

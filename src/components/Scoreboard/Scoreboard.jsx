@@ -2,13 +2,8 @@ import cx from 'classnames';
 import React from 'react';
 import styles from './Scoreboard.module.scss';
 
+import { convertTime } from '../../../utils';
 import { useStateValue } from '../../../store';
-
-const convertTime = time => {
-  const min = Math.floor(time / 60000);
-  const sec = ((time % 60000) / 1000).toFixed(0);
-  return `${min} : ${sec < 10 ? 0 : ''}${sec}`;
-};
 
 const Scoreboard = () => {
   const [{ scores }] = useStateValue();

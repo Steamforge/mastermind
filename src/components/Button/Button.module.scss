@@ -1,20 +1,19 @@
 .root {
-  background-color: lightblue;
+  background-color: var(--button-default);
   border-radius: 2rem;
   padding: 1rem 2rem;
-  box-shadow: inset -2px -2px 5px rgba(9, 4, 80, 0.5),
-    2px 2px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: inset -2px -2px 5px var(--shadow-50), 2px 2px 2px var(--shadow-25);
 
   &.primary {
-    background-color: cornflowerblue;
+    background-color: var(--button-blue);
     color: var(--white);
   }
   &.green {
-    background-color: forestgreen;
+    background-color: var(--button-green);
     color: var(--white);
   }
   &.error {
-    background-color: indianred;
+    background-color: var(--button-red);
     color: var(--white);
   }
 }

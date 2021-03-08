@@ -8,3 +8,9 @@ export const getCode = (pegCount, colorArray) =>
     color: getColor(colorArray),
     id: peg,
   }));
+
+export const convertTime = time => {
+  const min = Math.floor(time / 60000);
+  const sec = ((time % 60000) / 1000).toFixed(0);
+  return `${min}:${sec < 10 ? 0 : ''}${sec}`;
+};

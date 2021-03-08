@@ -34,7 +34,7 @@ const Row = ({ row, rowNum }) => {
     //find color/position matching
     row.forEach((color, idx) => {
       guessList.set(color, guessList.has(color) ? guessList.get(color) + 1 : 1);
-      if (color === code[idx].color) {
+      if (color === code[idx]?.color) {
         newHints.set(HINT_COLORS.RED, newHints.get(HINT_COLORS.RED) + 1);
       }
     });
@@ -71,9 +71,13 @@ const Row = ({ row, rowNum }) => {
       <div className={cx(styles[type])} key={hint} />
     ));
 
-  const rowStyles = cx(styles.root, {
-    [styles.win]: winGame && rowNum === currentRound - 1,
-  });
+  const rowStyles = cx(
+    styles.root,
+    {
+      [styles.win]: winGame && rowNum === currentRound - 1,
+    },
+    { [styles.guessed]: rowNum < currentRound }
+  );
 
   return (
     <div className={rowStyles}>
