@@ -10,7 +10,7 @@ import Layout from '../components/layout';
 import Nav from '../components/Nav';
 import reducer from '../../reducer';
 import Scoreboard from '../components/Scoreboard';
-import Tray from '../components/tray';
+import Tray from '../components/Tray';
 
 import { INITIAL_STATE } from '../../constants';
 import { StateProvider } from '../../store';
