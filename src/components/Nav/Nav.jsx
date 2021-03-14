@@ -29,6 +29,7 @@ const Nav = () => {
   ] = useStateValue();
 
   const MESSAGE = {
+    NEW: 'Click to play',
     LOSE: 'Try Again!',
     WIN: 'You Win!',
   };
@@ -154,6 +155,7 @@ const Nav = () => {
 
   return (
     <div className={cx(styles.root)}>
+      {isNewGame() && getMessage(MESSAGE.NEW)}
       {winGame && getMessage(MESSAGE.WIN)}
       {!winGame && currentRound === ROUNDS && getMessage(MESSAGE.LOSE)}
 
