@@ -4,7 +4,7 @@
   "description": "A version of the old Mastermind game",
   "main": "index.js",
   "scripts": {
-    "build": "gatsby build",
+    "build": "cross-env GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json}\"",
     "start": "npm run develop",
@@ -27,9 +27,11 @@
   "homepage": "https://github.com/Steamforge/mastermind#readme",
   "dependencies": {
     "classnames": "^2.2.6",
+    "cross-env": "^7.0.3",
     "gatsby": "^2.32.4",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-manifest": "^2.12.0",
+    "gatsby-plugin-no-sourcemaps": "^3.0.0",
     "gatsby-plugin-react-helmet": "^3.10.0",
     "gatsby-plugin-sass": "^3.2.0",
     "gatsby-source-filesystem": "^2.11.0",
