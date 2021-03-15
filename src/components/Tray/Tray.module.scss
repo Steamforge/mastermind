@@ -20,25 +20,4 @@
   &.active {
     bottom: 7rem;
   }
-
-  // @media (min-width: $breakpoint-tablet) {
-  //   border-bottom-left-radius: 1rem;
-  //   border-top-left-radius: 1rem;
-  //   bottom: inherit;
-  //   box-shadow: inset -2px 0 10px var(--shadow-25);
-  //   flex-direction: column;
-  //   justify-content: inherit;
-  //   left: 6rem;
-  //   top: 8rem;
-  //   transition: left 0.2s;
-  //   width: auto;
-
-  //   * + * {
-  //     margin-top: 1rem;
-  //   }
-
-  //   &.active {
-  //     left: 0;
-  //   }
-  // }
 }
