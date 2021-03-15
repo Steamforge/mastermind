@@ -1,12 +1,16 @@
 .root {
   align-items: center;
   background-color: var(--dark-gray);
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+
   display: flex;
   justify-content: center;
   padding: 1rem;
   transition: background-color 0.2s;
+
+  @media (min-width: $breakpoint-max) {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
 
   &.active {
     background-color: var(--white);

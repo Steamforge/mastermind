@@ -1,18 +1,21 @@
 .root {
   background-color: var(--white);
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
   overflow: hidden;
   position: relative;
   width: 100%;
   z-index: 1;
+
+  @media (min-width: $breakpoint-max) {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
 }
 
 .guess,
 .row {
   align-items: center;
   display: flex;
-  height: 7rem;
+  height: 8rem;
   padding: 1rem;
 
   > * + * {
@@ -58,19 +61,31 @@
   border-bottom-right-radius: 1rem;
 }
 
-.keyContainer {
+.pegRow {
+  align-items: center;
   display: flex;
   flex-grow: 1;
+  justify-content: center;
+
+  > * + * {
+    margin-left: 1rem;
+  }
+}
+
+.keyContainer {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
   flex-wrap: wrap;
-  width: 5rem;
+  width: 6rem;
 
   .n {
     align-items: center;
     display: flex;
-    height: 2.5rem;
+    height: 3rem;
     justify-content: center;
     position: relative;
-    width: 2.5rem;
+    width: 3rem;
 
     &::after {
       background-color: transparent;
@@ -78,8 +93,8 @@
       box-shadow: inset 2px 2px 2px var(--shadow-25);
       content: '';
       display: block;
-      height: 2rem;
-      width: 2rem;
+      height: 2.5rem;
+      width: 2.5rem;
     }
   }
 }

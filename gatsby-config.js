@@ -7,8 +7,13 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-react-helmet',
-    `gatsby-plugin-sass`,
-    "gatsby-plugin-no-sourcemaps",
+    {
+      resolve: 'gatsby-plugin-sass',
+      options: {
+        additionalData: `@import "./src/styles/variables";`,
+      }
+    },
+    'gatsby-plugin-no-sourcemaps',
     {
       resolve: 'gatsby-source-filesystem',
       options: {

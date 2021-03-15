@@ -154,28 +154,34 @@ const Nav = () => {
   );
 
   return (
-    <div className={cx(styles.root)}>
-      {isNewGame() && getMessage(MESSAGE.NEW)}
-      {winGame && getMessage(MESSAGE.WIN)}
-      {!winGame && currentRound === ROUNDS && getMessage(MESSAGE.LOSE)}
+    <nav className={cx(styles.root)}>
+      <div className={cx(styles.container)}>
+        {isNewGame() && getMessage(MESSAGE.NEW)}
+        {winGame && getMessage(MESSAGE.WIN)}
+        {!winGame && currentRound === ROUNDS && getMessage(MESSAGE.LOSE)}
 
-      {showCopy() && (
-        <Button label="Copy" onClick={() => updateGuessRow('copy')} />
-      )}
+        {showCopy() && (
+          <Button label="Copy" onClick={() => updateGuessRow('copy')} />
+        )}
 
-      {showGuess() && (
-        <>
-          <Button buttonType="primary" label="Clear" onClick={updateGuessRow} />
-          <Button buttonType="green" label="Guess" onClick={submitGuess} />
-        </>
-      )}
+        {showGuess() && (
+          <>
+            <Button
+              buttonType="primary"
+              label="Clear"
+              onClick={updateGuessRow}
+            />
+            <Button buttonType="green" label="Guess" onClick={submitGuess} />
+          </>
+        )}
 
-      <Button
-        buttonType={winGame || isNewGame() ? 'green' : 'error'}
-        label="New"
-        onClick={resetGame}
-      />
-    </div>
+        <Button
+          buttonType={winGame || isNewGame() ? 'green' : 'error'}
+          label="New"
+          onClick={resetGame}
+        />
+      </div>
+    </nav>
   );
 };
 
