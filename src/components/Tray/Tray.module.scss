@@ -1,21 +1,44 @@
 .root {
   background-color: var(--white);
-  border-bottom-left-radius: 1rem;
-  border-top-left-radius: 1rem;
-  box-shadow: inset -2px 0 10px var(--shadow-25);
-  display: flex;
-  flex-direction: column;
+  bottom: 0;
+  box-shadow: inset -2px 0 10px var(--shadow-25), 2px 0 20px var(--shadow-50);
   padding: 1rem;
-  position: absolute;
-  transition: left 0.2s;
-  left: 6rem;
-  top: 8rem;
+  position: fixed;
+  transition: bottom 0.2s;
+  width: 100%;
+  z-index: 1;
+
+  .container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    max-width: 50rem;
+    position: relative;
+    width: 100%;
+  }
 
   &.active {
-    left: 0;
+    bottom: 7rem;
   }
 
-  * + * {
-    margin-top: 1rem;
-  }
+  // @media (min-width: $breakpoint-tablet) {
+  //   border-bottom-left-radius: 1rem;
+  //   border-top-left-radius: 1rem;
+  //   bottom: inherit;
+  //   box-shadow: inset -2px 0 10px var(--shadow-25);
+  //   flex-direction: column;
+  //   justify-content: inherit;
+  //   left: 6rem;
+  //   top: 8rem;
+  //   transition: left 0.2s;
+  //   width: auto;
+
+  //   * + * {
+  //     margin-top: 1rem;
+  //   }
+
+  //   &.active {
+  //     left: 0;
+  //   }
+  // }
 }

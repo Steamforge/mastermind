@@ -91,8 +91,10 @@ const Tray = () => {
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          {COLORS.map((color, index) => getPeg(color, index))}
-          <DragPlaceholder provided={provided} />
+          <div className={cx(styles.container)}>
+            {COLORS.map((color, index) => getPeg(color, index))}
+            <DragPlaceholder provided={provided} />
+          </div>
         </div>
       )}
     </Droppable>

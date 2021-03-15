@@ -82,9 +82,11 @@ const Row = ({ row, rowNum }) => {
   return (
     <div className={rowStyles}>
       <RowNum num={rowNum + 1} />
-      {row.map((color, idx) => (
-        <Peg color={color} key={`${idx}${color}`} />
-      ))}
+      <div className={cx(styles.pegRow)}>
+        {row.map((color, idx) => (
+          <Peg color={color} key={`${idx}${color}`} />
+        ))}
+      </div>
       <div className={cx(styles.keyContainer)}>
         {Array.from(guessHints.keys()).map(hint =>
           getHint(hint, guessHints.get(hint))

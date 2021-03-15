@@ -8,10 +8,10 @@ $colors: a, b, c, d, e, f, x;
   display: flex;
   flex-shrink: 0;
   font-size: 2rem;
-  height: 4rem;
+  height: 5rem;
   justify-content: center;
   transition: background-color 0.2s;
-  width: 4rem;
+  width: 5rem;
 
   @each $color in $colors {
     &.#{$color} {
@@ -42,4 +42,9 @@ $colors: a, b, c, d, e, f, x;
 
 .stop {
   transform: none !important;
+}
+
+.over {
+  background-color: var(--hilite-purple);
+  border: solid 2px var(--hilite-purple);
 }

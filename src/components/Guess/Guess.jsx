@@ -67,23 +67,25 @@ const Guess = () => {
       {showGuess() && (
         <div className={guessStyles}>
           <RowNum num={currentRound + 1} />
-          {activeGuess.map((color, idx) => (
-            <Droppable droppableId={`guess${idx}`} key={`${idx}${color}`}>
-              {provided => (
-                <>
-                  <Peg
-                    active={activePeg[idx]}
-                    color={color}
-                    currentRow
-                    onClick={() => updatePeg(idx)}
-                    provided={provided}
-                  />
-                  <DragPlaceholder provided={provided} />
-                </>
-              )}
-            </Droppable>
-          ))}
-
+          <div className={cx(styles.pegRow)}>
+            {activeGuess.map((color, idx) => (
+              <Droppable droppableId={`guess${idx}`} key={`${idx}${color}`}>
+                {(provided, snapshot) => (
+                  <>
+                    <Peg
+                      active={activePeg[idx]}
+                      color={color}
+                      currentRow
+                      onClick={() => updatePeg(idx)}
+                      provided={provided}
+                      snapshot={snapshot}
+                    />
+                    <DragPlaceholder provided={provided} />
+                  </>
+                )}
+              </Droppable>
+            ))}
+          </div>
           {getEmptyKeyPegs(PEG_COUNT)}
         </div>
       )}

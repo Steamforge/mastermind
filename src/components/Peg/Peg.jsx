@@ -17,7 +17,9 @@ const Peg = ({
     { [styles.active]: active },
     { [styles.link]: onClick },
     { [styles.current]: currentRow },
-    { [styles.stop]: !snapshot?.isDragging }
+    { [styles.stop]: !snapshot?.isDragging },
+    { [styles.active]: snapshot?.isDragging },
+    { [styles.over]: snapshot?.isDraggingOver }
   );
   return (
     <div
