@@ -16,7 +16,7 @@ import { StateProvider } from '../../store';
 const IndexPage = () => (
   <StateProvider initialState={INITIAL_STATE} reducer={reducer}>
     <DragContext>
-      <Layout>
+      <Layout pagetitle="mastermind">
         <Container>
           <Code />
           <Guess />
