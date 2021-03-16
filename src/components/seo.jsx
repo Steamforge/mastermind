@@ -3,6 +3,8 @@ import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { Helmet } from 'react-helmet';
 
+import cover from '../images/studley-share.png';
+
 const SEO = ({ description, lang = 'en', meta = [], title }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -12,14 +14,15 @@ const SEO = ({ description, lang = 'en', meta = [], title }) => {
             author
             description
             title
+            siteUrl
+            image
           }
         }
       }
     `
   );
 
-  const metaDescription = description || site.siteMetadata.description;
-  const defaultTitle = site.siteMetadata?.title;
+  const metaDescription = description || site.siteMetadata?.description;
 
   return (
     <Helmet
@@ -34,6 +37,14 @@ const SEO = ({ description, lang = 'en', meta = [], title }) => {
         {
           content: title,
           property: 'og:title',
+        },
+        {
+          property: 'og:url',
+          content: site.siteMetadata?.siteUrl,
+        },
+        {
+          property: 'og:image',
+          content: cover,
         },
         {
           content: metaDescription,
@@ -52,7 +63,7 @@ const SEO = ({ description, lang = 'en', meta = [], title }) => {
           name: 'twitter:creator',
         },
         {
-          content: title,
+          content: title || site.siteMetadata?.title,
           name: 'twitter:title',
         },
         {
@@ -61,7 +72,7 @@ const SEO = ({ description, lang = 'en', meta = [], title }) => {
         },
       ].concat(meta)}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={'%s | studley.dev'}
     />
   );
 };

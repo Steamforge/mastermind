@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/Steamforge/mastermind/issues"
   },
-  "homepage": "https://github.com/Steamforge/mastermind#readme",
+  "homepage": "https://mastermind.studley.dev",
   "dependencies": {
     "classnames": "^2.2.6",
     "cross-env": "^7.0.3",
