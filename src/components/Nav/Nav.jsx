@@ -1,6 +1,8 @@
+import React, { useState } from 'react';
 import Button from '../Button';
 import cx from 'classnames';
-import React from 'react';
+import Modal from '../Modal';
+import Scoreboard from '../Scoreboard';
 import styles from './Nav.module.scss';
 
 import {
@@ -27,6 +29,7 @@ const Nav = () => {
     },
     dispatch,
   ] = useStateValue();
+  const [isOpen, setOpen] = useState(false);
 
   const MESSAGE = {
     NEW: 'Click to play',
@@ -73,6 +76,7 @@ const Nav = () => {
           time: getElapsedTime(currentTime),
         },
       ];
+      setOpen(true);
       dispatch({
         type: UPDATE_SCORE,
         payload: newScore,
@@ -94,6 +98,7 @@ const Nav = () => {
           time: getElapsedTime(currentTime),
         },
       ];
+      setOpen(true);
       dispatch({
         type: UPDATE_SCORE,
         payload: newScore,
@@ -119,6 +124,7 @@ const Nav = () => {
       });
       checkWin();
     }
+    window.scrollTo({ top: currentRound * 64, left: 0, behavior: 'smooth' });
   }
 
   //reset the game
@@ -139,6 +145,7 @@ const Nav = () => {
         },
       },
     });
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }
 
   const isNewGame = () => code.length === 0;
@@ -180,6 +187,20 @@ const Nav = () => {
           label="New"
           onClick={resetGame}
         />
+
+        <Button
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Score
+        </Button>
+
+        {isOpen && (
+          <Modal onClose={setOpen}>
+            <Scoreboard />
+          </Modal>
+        )}
       </div>
     </nav>
   );

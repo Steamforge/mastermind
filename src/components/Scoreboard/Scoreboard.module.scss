@@ -1,15 +1,11 @@
 .root {
   background: var(--white);
   font-size: 2rem;
+  max-height: 100vh;
   padding: 1rem;
-  width: 100%;
-  display: none;
 
-  @media (min-width: $breakpoint-tablet) {
+  @media (min-width: $breakpoint-max) {
     border-radius: 1rem;
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
   }
 
   th {
