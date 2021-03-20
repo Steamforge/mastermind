@@ -11,12 +11,12 @@ import {
   CHANGE_GUESS,
   UPDATE_GUESS_ROW,
 } from '../../../actions';
-import { COLORS, INITIAL_STATE, PEG_COUNT } from '../../../constants';
+import { COLORS, INITIAL_STATE, PEG_COUNT, ROUNDS } from '../../../constants';
 import { useStateValue } from '../../../store';
 
 const Tray = () => {
   const [
-    { activeGuess, activePeg, code, currentPeg, winGame },
+    { activeGuess, activePeg, code, currentPeg, currentRound, winGame },
     dispatch,
   ] = useStateValue();
 
@@ -87,7 +87,10 @@ const Tray = () => {
     <Droppable droppableId="colors" isDropDisabled>
       {provided => (
         <div
-          className={cx(styles.root, { [styles.active]: !isNewGame() })}
+          className={cx(styles.root, {
+            [styles.active]:
+              !isNewGame() && !winGame && currentRound !== ROUNDS,
+          })}
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
