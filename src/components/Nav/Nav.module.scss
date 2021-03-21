@@ -1,5 +1,6 @@
 .root {
   align-items: center;
+  backface-visibility: hidden;
   background-color: var(--white);
   bottom: 0;
   display: flex;
