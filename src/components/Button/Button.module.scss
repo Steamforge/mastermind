@@ -1,8 +1,9 @@
 .root {
   background-color: var(--button-default);
   border-radius: 2rem;
-  padding: 1rem 2rem;
   box-shadow: inset -2px -2px 5px var(--shadow-50), 2px 2px 2px var(--shadow-25);
+  font-size: 2rem;
+  padding: 1rem 2rem;
 
   &.primary {
     background-color: var(--button-blue);

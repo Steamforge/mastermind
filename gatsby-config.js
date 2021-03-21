@@ -36,13 +36,30 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-google-fonts',
+      resolve: 'gatsby-plugin-webfonts',
       options: {
-        fonts: [
-          'Open Sans'
-        ],
-        display: 'swap'
+        fonts: {
+          google: [
+            {
+              family: 'Open Sans',
+              variants: ["400", "700", "900"],
+            },
+          ],
+        },
       },
     },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: 'UA-136795155-1'
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-minify-classnames',
+      options: {
+        dictionary: 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ0123456789',
+        enable: process.env.NODE_ENV === 'production',
+      },
+    },   
   ],
 };

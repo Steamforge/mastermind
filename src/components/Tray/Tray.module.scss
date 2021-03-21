@@ -1,4 +1,5 @@
 .root {
+  backface-visibility: hidden;
   background-color: var(--white);
   bottom: 0;
   box-shadow: inset -2px 0 10px var(--shadow-25), 2px 0 20px var(--shadow-50);
