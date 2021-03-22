@@ -4,7 +4,8 @@ import React from 'react';
 
 import DragPlaceholder from '../DragPlaceholder';
 import Peg from '../Peg';
-import styles from './Tray.module.scss';
+
+import * as styles from './Tray.module.scss';
 
 import {
   CHANGE_CURRENT_PEG,

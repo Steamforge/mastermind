@@ -1,7 +1,8 @@
 import cx from 'classnames';
 import Peg from '../Peg';
 import React from 'react';
-import styles from './Code.module.scss';
+
+import * as styles from './Code.module.scss';
 
 import { getArrayFromNum } from '../../../utils';
 import { PEG_COUNT } from '../../../constants';

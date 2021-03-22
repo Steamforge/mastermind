@@ -8,14 +8,15 @@ module.exports = {
     lang: `en`
   },
   plugins: [
+    'gatsby-plugin-no-sourcemaps',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-robots-txt',
     {
       resolve: 'gatsby-plugin-sass',
       options: {
         additionalData: `@import "./src/styles/variables";`,
       }
     },
-    'gatsby-plugin-no-sourcemaps',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -54,12 +55,5 @@ module.exports = {
         trackingId: 'UA-136795155-1'
       }
     },
-    {
-      resolve: 'gatsby-plugin-minify-classnames',
-      options: {
-        dictionary: 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ0123456789',
-        enable: process.env.NODE_ENV === 'production',
-      },
-    },   
   ],
 };
