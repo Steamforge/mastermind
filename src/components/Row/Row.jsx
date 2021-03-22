@@ -3,7 +3,8 @@ import cx from 'classnames';
 
 import Peg from '../Peg';
 import RowNum from '../RowNum';
-import styles from './Row.module.scss';
+
+import * as styles from './Row.module.scss';
 
 import { getArrayFromNum } from '../../../utils';
 import { HINT_COLORS } from '../../../constants';

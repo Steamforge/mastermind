@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
-import styles from './Peg.module.scss';
+
+import * as styles from './Peg.module.scss';
 
 const Peg = ({
   active,

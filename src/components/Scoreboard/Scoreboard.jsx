@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
-import styles from './Scoreboard.module.scss';
+
+import * as styles from './Scoreboard.module.scss';
 
 import { convertTime } from '../../../utils';
 import { useStateValue } from '../../../store';

@@ -3,7 +3,8 @@ import Button from '../Button';
 import cx from 'classnames';
 import Modal from '../Modal';
 import Scoreboard from '../Scoreboard';
-import styles from './Nav.module.scss';
+
+import * as styles from './Nav.module.scss';
 
 import {
   CHANGE_WIN,

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import cx from 'classnames';
-import styles from './Container.module.scss';
+
+import * as styles from './Container.module.scss';
 
 import { CHANGE_PEG } from '../../../actions';
 import { INITIAL_STATE } from '../../../constants';

@@ -6,7 +6,8 @@ import DragPlaceholder from '../DragPlaceholder';
 import Peg from '../Peg';
 import Row from '../Row';
 import RowNum from '../RowNum';
-import styles from './Guess.module.scss';
+
+import * as styles from './Guess.module.scss';
 
 import { PEG_COUNT, ROUNDS } from '../../../constants';
 import { CHANGE_PEG } from '../../../actions';
